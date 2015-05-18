@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
 	</head>
 	<body>
 		<div class="container">
@@ -12,8 +11,8 @@
 			<div class='sidebar'>
 				<div class='palette'>
 					<div class="customcolor">
-						<input type="text"></input>
-						<button></button>
+						<input type="text" id="color-value"></input>
+						<button id="pick-color">P</button>
 					</div>
 					<span class="colorbox"></span>
 					<span class="colorbox"></span>
@@ -28,10 +27,11 @@
 					<span></span>
 					<span></span>
 				</div>
-				<canvas id="pixeleditor"></canvas>
+				<canvas width="512" height="512" style="border:2px dashed black"></canvas>
 				<div class="flipbook"></div>
 			</div>
 
 		</div>
+	<script src="../app/js/main.js"></script>
 	</body>
 </html>

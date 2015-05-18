@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Neats29/quill/issues"
   },
-  "homepage": "https://github.com/Neats29/quill"
+  "homepage": "https://github.com/Neats29/quill",
+  "devDependencies": {
+    "tape": "^4.0.0"
+  }
 }
