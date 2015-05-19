@@ -4,6 +4,7 @@
 <!-- 		<link rel="stylesheet" type="text/css" href="/css/main.css">
 
  -->
+        <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.18.0.css">
  	</head>
 	<body>
 		<div class="container">
@@ -30,11 +31,15 @@
 					<span></span>
 					<span></span>
 				</div>
-				<canvas id="canvas"></canvas>
+				<canvas id="canvas" style="border:2px dashed black"></canvas>
 				<div class="flipbook"></div>
 			</div>
 
 		</div>
+		<div id="qunit"></div>
+        <div id="qunit-fixture"></div>
 	    <script src="js/main.js"></script>
+	    <script src="//code.jquery.com/qunit/qunit-1.18.0.js"></script>
+	    <script src="../test/__qunit.js"></script>
 	</body>
 </html>
