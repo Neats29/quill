@@ -3,6 +3,8 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
+// Canvas rendering
+
 function setCanvasSize(width, height) {
     canvas.width = width;
     canvas.height = height;
@@ -28,9 +30,25 @@ function traceGrid(width, height) {
     }
 }
 
-function canvasClickHandler(callback) {
-    canvas.addEventListener("click", callback);
+function colorCells(cellGrid, width, height) {
+    var cellWidth = width/64;
+    var cellHeight = height/64;
+
+    cellGrid.forEach(function(row, rownum) {
+        row.forEach(function(cell, colnum) {
+            ctx.fillStyle = cell;
+            ctx.fillRect((colnum*8), (rownum*8), cellWidth, cellHeight);
+        });
+    });
 }
+
+function drawCanvas(cellGrid, width, height) {
+    colorCells(cellGrid, width, height);
+    traceGrid(width, height);
+    drawLine("#eee");
+}
+
+// Getting click location
 
 function getRelativeMousePosition(e) {
     var x, y;
@@ -56,18 +74,60 @@ function getClickedCell(coords) {
     return [x, y];
 }
 
-function getCellFromMousePosition(e) {
-    console.log(getClickedCell(getRelativeMousePosition(e)));
+// event listener and click handler
+
+function addClickHandler(element, callback) {
+    element.addEventListener("click", callback);
+}
+
+function render(state) {
+    setCanvasSize(state.width, state.height);
+    drawCanvas(state.canvas, state.width, state.height);
 }
 
 
 (function() {
-    var w = 512;
-    var h = 512;
 
-    setCanvasSize(w, h);
-    traceGrid(w, h);
-    drawLine("#eee");
-    canvasClickHandler(getCellFromMousePosition);
+    function canvasMaker() {
+        var canvas = [];
+
+        for (var i=0; i<64; i+=1) {
+            canvas[i] = [];
+            for (var j=0; j<64; j+=1) {
+                canvas[i][j] = "#FFFFFF";
+            }
+        }
+
+        return canvas;
+    }
+
+    var state = {
+        width: 512,
+        height: 512,
+        color: "#000000",
+        canvas: canvasMaker(),
+        history: []
+    };
+
+    render(state);
+
+    addClickHandler(canvas, function(e) {
+        state.history.push(JSON.parse(JSON.stringify(state.canvas)));
+
+        var cell = getClickedCell(getRelativeMousePosition(e));
+        state.canvas[cell[1]][cell[0]] = state.color;
+        render(state);
+    });
+
+    addClickHandler(document.getElementById("pick-color"), function(e) {
+        var color = "#" + document.getElementById("color-value").value;
+        var validHex  = /^#[0-9A-F]{6}$/i.test(color);
+
+        if (validHex) {
+            state.color = color;
+            return render(state);
+        }
+    });
+
 }());
 
