@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Neats29/quill",
   "devDependencies": {
+    "browserify": "^10.2.0",
     "tape": "^4.0.0"
   }
 }

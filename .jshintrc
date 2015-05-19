@@ -1,4 +1,5 @@
 {
 	"strict": true,
-	"forin": true
+	"forin": true,
+    "browserify": true
 }
