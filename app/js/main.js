@@ -3,6 +3,8 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
+// Canvas rendering
+
 function setCanvasSize(width, height) {
     canvas.width = width;
     canvas.height = height;
@@ -40,6 +42,14 @@ function colorCells(cellGrid, width, height) {
     });
 }
 
+function drawCanvas(cellGrid, width, height) {
+    colorCells(cellGrid, width, height);
+    traceGrid(width, height);
+    drawLine("#eee");
+}
+
+// Getting click location
+
 function getRelativeMousePosition(e) {
     var x, y;
 
@@ -64,15 +74,15 @@ function getClickedCell(coords) {
     return [x, y];
 }
 
-function canvasClickHandler(callback) {
-    canvas.addEventListener("click", callback);
+// event listener and click handler
+
+function addClickHandler(element, callback) {
+    element.addEventListener("click", callback);
 }
 
 function render(state) {
     setCanvasSize(state.width, state.height);
-    traceGrid(state.width, state.height);
-    drawLine("#eee");
-    colorCells(state.canvas, state.width, state.height);
+    drawCanvas(state.canvas, state.width, state.height);
 }
 
 
@@ -95,15 +105,28 @@ function render(state) {
         width: 512,
         height: 512,
         color: "#000000",
-        canvas: canvasMaker()
+        canvas: canvasMaker(),
+        history: []
     };
 
     render(state);
 
-    canvasClickHandler(function(e) {
+    addClickHandler(canvas, function(e) {
+        state.history.push(JSON.parse(JSON.stringify(state.canvas)));
+
         var cell = getClickedCell(getRelativeMousePosition(e));
         state.canvas[cell[1]][cell[0]] = state.color;
         render(state);
+    });
+
+    addClickHandler(document.getElementById("pick-color"), function(e) {
+        var color = "#" + document.getElementById("color-value").value;
+        var validHex  = /^#[0-9A-F]{6}$/i.test(color);
+
+        if (validHex) {
+            state.color = color;
+            return render(state);
+        }
     });
 
 }());
