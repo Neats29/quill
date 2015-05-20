@@ -113,6 +113,6 @@ addClickHandler(document.getElementById("undo"), function () {
 	var lastCanvas = state.history.pop();
 	state.canvas = lastCanvas;
 	render(state);
-})
+});
 
 render(state);
