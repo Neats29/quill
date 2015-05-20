@@ -14,12 +14,18 @@
 			<div class="sidebar">
 				<div class="palette">
 					<div class="customcolor">
-						<input type="text" id="color-value"></input>
+						<input type="text" id="color-value" />
 						<button id="pick-color">P</button>
+						<input type="color" />
+						<button id="rubber">rubber</button>
+						<button id="thick">thick</button>
 					</div>
-					<span class="colorbox"></span>
-					<span class="colorbox"></span>
-					<span class="colorbox"></span>
+					<div class="colors">
+						<span id="e71b1b" class="colorbox">red</span>
+						<span id="3639E0" class="colorbox">blue</span>
+						<span id="89e71b" class="colorbox">green</span>
+						<span id="000000" class="colorbox">black</span>
+					</div>
 				</div>
 				<div class="brushes"></div>
 			</div>
@@ -30,9 +36,11 @@
 					<span></span>
 					<span></span>
 				</div>
+				<br>
 				<canvas id="canvas"></canvas>
+				<button id="undo">undo</button>
 				<canvas id="flipbook"></canvas>
-				<button id="play">></button>
+				<button id="play">Playback</button>
 			</div>
 
 		</div>
