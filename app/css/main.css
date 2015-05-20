@@ -1,3 +1,4 @@
+/*
 body,
 html {
 	background-color: #222222;
@@ -64,29 +65,31 @@ canvas {
 	left: 300px;
 	position: absolute;
 }
+*/
 
-#e71b1b {
+#red {
 	background-color: #e71b1b;
 	width: 10px;
 	height: 10px;
 }
 
 
-#3639E0 {
+#blue {
 	background-color: #3639E0;
 	width: 10px;
 	height: 10px;
 }
 
 
-#89e71b {
+#green {
 	background-color: #89e71b;
 	width: 10px;
 	height: 10px;
 }
 
-#000000 {
-	background-color: #000000;
+#black {
+	background-color: black;
 	width: 10px;
 	height: 10px;
 }
+

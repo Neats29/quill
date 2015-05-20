@@ -37,6 +37,7 @@ function canvasMaker() {
 var state = {
   width: 512,
   height: 512,
+	brushSize: 1,
   color: "#000000",
   canvas: canvasMaker(),
   history: []
@@ -46,7 +47,12 @@ addClickHandler(document.getElementById("canvas"), function (e) {
   var cell = editor.getClickedCell(e);
   state.history.push(JSON.parse(JSON.stringify(state.canvas)));
 
-  state.canvas[cell[1]][cell[0]] = state.color;
+	for (var i = 0; i < state.brushSize; i+=1) {
+		var y = cell[1];
+		var x = cell[0] + i > 64 ? cell[0] : cell[0] + i;
+
+		state.canvas[y][x] = state.color;
+	}
 
   render(state);
 });
@@ -56,38 +62,40 @@ addClickHandler(document.getElementById("pick-color"), function () {
   var validHex  = /^#[0-9A-F]{6}$/i.test(color);
 
   if (validHex) {
-    state.color = color;
+    changeColor(color);
   }
 });
+
+function changeColor(color) {
+	state.color = color;
+}
 
 addClickHandler(document.getElementById("rubber"), function() {
 	state.color = "#FFFFFF";
 });
 
 
-addClickHandler(document.getElementById("e71b1b"), function() {
+addClickHandler(document.getElementById("red"), function() {
 	state.color = "#e71b1b";
 
 });
 
-addClickHandler(document.getElementById("3639E0"), function() {
+addClickHandler(document.getElementById("blue"), function() {
 	state.color = "#3639E0";
 
 });
 
-addClickHandler(document.getElementById("89e71b"), function() {
+addClickHandler(document.getElementById("green"), function() {
 	state.color = "#89e71b";
 
 });
 
-addClickHandler(document.getElementById("000000"), function() {
+addClickHandler(document.getElementById("black"), function() {
 	state.color = "#000000";
-
 });
 
 addClickHandler(document.getElementById("thick"), function() {
-	editor.colorCells();
-
+	state.brushSize = 2;
 });
 
 addClickHandler(document.getElementById("play"), function () {
