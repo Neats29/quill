@@ -88,6 +88,23 @@ Canvas.prototype = {
 
 	getClickedCell: function(e) {
 		return this.getCellAtPosition(this.getRelativeMousePosition(e));
+	},
+
+
+	//drawing without letting go of the mouse
+	mouseMoved: function(e) {
+		var x, y;
+		x = e.clientX;
+		y = e.clientY;
+	},
+
+	mouseDown: function(e) {
+		e.target.setCapture();
+		e.addEventListener("mousemove", this.mouseMoved, false);
+	},
+
+	mouseUp: function(e) {
+		e.target.removeEventListener("mousemove", this.mouseMoved, false);
 	}
 
 };
@@ -141,7 +158,12 @@ var state = {
 
 addClickHandler(document.getElementById("canvas"), function (e) {
   var cell = editor.getClickedCell(e);
+//	editor.mouseDown(e);
+//	console.log(editor.mouseDown(e));
+//	editor.mouseUp(e);
   state.history.push(JSON.parse(JSON.stringify(state.canvas)));
+	console.log("history",state.history);
+	console.log("canvas",state.canvas);
 
 	for (var i = 0; i < state.brushSize; i+=1) {
 		var y = cell[1];
@@ -152,6 +174,7 @@ addClickHandler(document.getElementById("canvas"), function (e) {
 
   render(state);
 });
+
 
 addClickHandler(document.getElementById("pick-color"), function () {
   var color = "#" + document.getElementById("color-value").value;
@@ -167,9 +190,27 @@ addClickHandler(document.getElementById("pick-color"), function () {
   }
 });
 
+//GIF
+addClickHandler(document.getElementById("gif"), function() {
+	var gif = new GIF({
+  	workers: 2,
+  	quality: 10
+	});
+
+	gif.addFrame(ctx, {copy: true});
+
+	gif.on('finished', function(blob) {
+		window.open(URL.createObjectURL(blob));
+	});
+
+	gif.render();
+});
+
+
 function changeColor(color) {
 	state.color = color;
 }
+
 
 function clickOnTool (id, color) {
 	addClickHandler(document.getElementById(id), function() {
@@ -178,18 +219,31 @@ function clickOnTool (id, color) {
 }
 
 
-addClickHandler(document.getElementById("colorPicker"), function (){
-	addClickHandler(document.getElementById("addColor"), function (){
-		var selectedColor = document.getElementById("colorPicker").value;
-		var div = document.createElement('div');
-		document.getElementById("colors").appendChild(div);
-		div.style.backgroundColor = selectedColor;
-		div.style.height = "15px";
-		div.style.width = "15px";
-		changeColor(selectedColor);
-
+function colorOrBackgroundPicker (id) {
+	var selectedColor;
+	addClickHandler(document.getElementById(id), function(e) {
+		if (id === "addColor") {
+			selectedColor = document.getElementById("colorPicker").value;
+			var div = document.createElement('div');
+			document.getElementById("colors").appendChild(div);
+			div.style.backgroundColor = selectedColor;
+			div.style.height = "15px";
+			div.style.width = "15px";
+			changeColor(selectedColor);
+		}
+		else if (id === "backgroundColor") {
+			selectedColor = document.getElementById("colorPicker").value;
+			var cell = editor.getClickedCell(e);
+			console.log(editor.getClickedCell(e));
+			if (cell, "hasnt been clicked") { //need to come back to this
+				changeColor(selectedColor);
+			}
+		}
 	});
-});
+}
+
+colorOrBackgroundPicker("addColor");
+colorOrBackgroundPicker("backgroundColor");
 
 
 addClickHandler(document.getElementById("thick"), function() {
@@ -206,7 +260,7 @@ addClickHandler(document.getElementById("play"), function () {
 
 		setTimeout(function(){
 			replayDrawing(n+1);
-		}, 400)
+		}, 400);
 	}
 
 	replayDrawing(0);

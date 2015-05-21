@@ -18,8 +18,10 @@
 						<button id="pick-color">P</button>
 						<input type="color" id="colorPicker" />
 						<input type="submit" id="addColor" value="Add colour"/>
+						<input type="submit" id="backgroundColor" value="Set Background" />
 						<button id="rubber">Rubber</button>
 						<button id="thick">Thick</button>
+						<button id="gif">Export As GIF</button>
 					</div>
 					<div class="colors" id="colors">
 						<div id="red" class="colorbox"></div>
@@ -43,8 +45,9 @@
 				<canvas id="flipbook"></canvas>
 				<button id="play">Playback</button>
 			</div>
-
 		</div>
 	    <script src="js/bundle.js"></script>
+	    <script src="../lib/gif/gif.js"></script>
+	    <script src="../lib/gif/gif.worker.js"></script>
 	</body>
 </html>

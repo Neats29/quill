@@ -93,8 +93,26 @@ canvas {
 	height: 15px;
 }
 
-.colors {
+.colors div {
+	display: inline-block;
+	font-size: 0;
+/*
 	float:left;
  clear:both;
-	display: inline-block;
+*/
+
+}
+
+.colors {
+	display: flex;
+}
+
+
+#pick-color, #addColor, #backgroundColor, #rubber, #thick, #gif {
+	background-color:	#2a2a2a;
+	color: white;
+	border: none;
+	font-family: monospace;
+	font-weight: 100;
+	padding: 7px;
 }
