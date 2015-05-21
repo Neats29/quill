@@ -158,6 +158,11 @@ addClickHandler(document.getElementById("pick-color"), function () {
   var validHex  = /^#[0-9A-F]{6}$/i.test(color);
 
   if (validHex) {
+		var div = document.createElement('div');
+		document.getElementById("colors").appendChild(div);
+		div.style.backgroundColor = color;
+		div.style.height = "15px";
+		div.style.width = "15px";
     changeColor(color);
   }
 });
@@ -166,29 +171,26 @@ function changeColor(color) {
 	state.color = color;
 }
 
-addClickHandler(document.getElementById("rubber"), function() {
-	state.color = "#FFFFFF";
+function clickOnTool (id, color) {
+	addClickHandler(document.getElementById(id), function() {
+		changeColor(color);
+	});
+}
+
+
+addClickHandler(document.getElementById("colorPicker"), function (){
+	addClickHandler(document.getElementById("addColor"), function (){
+		var selectedColor = document.getElementById("colorPicker").value;
+		var div = document.createElement('div');
+		document.getElementById("colors").appendChild(div);
+		div.style.backgroundColor = selectedColor;
+		div.style.height = "15px";
+		div.style.width = "15px";
+		changeColor(selectedColor);
+
+	});
 });
 
-
-addClickHandler(document.getElementById("red"), function() {
-	state.color = "#e71b1b";
-
-});
-
-addClickHandler(document.getElementById("blue"), function() {
-	state.color = "#3639E0";
-
-});
-
-addClickHandler(document.getElementById("green"), function() {
-	state.color = "#89e71b";
-
-});
-
-addClickHandler(document.getElementById("black"), function() {
-	state.color = "#000000";
-});
 
 addClickHandler(document.getElementById("thick"), function() {
 	state.brushSize = 2;
@@ -218,6 +220,12 @@ addClickHandler(document.getElementById("undo"), function () {
 	state.canvas = lastCanvas;
 	render(state);
 });
+
+clickOnTool("rubber", "#FFFFFF");
+clickOnTool("red", "#e71b1b");
+clickOnTool("blue", "#3639E0");
+clickOnTool("green", "#89e71b");
+clickOnTool("black", "#000000");
 
 render(state);
 },{"./Canvas":1}]},{},[2]);

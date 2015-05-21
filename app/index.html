@@ -16,11 +16,12 @@
 					<div class="customcolor">
 						<input type="text" id="color-value" />
 						<button id="pick-color">P</button>
-						<input type="color" />
-						<button id="rubber">rubber</button>
-						<button id="thick">thick</button>
+						<input type="color" id="colorPicker" />
+						<input type="submit" id="addColor" value="Add colour"/>
+						<button id="rubber">Rubber</button>
+						<button id="thick">Thick</button>
 					</div>
-					<div class="colors">
+					<div class="colors" id="colors">
 						<div id="red" class="colorbox"></div>
 						<div id="blue" class="colorbox"></div>
 						<div id="green" class="colorbox"></div>
@@ -38,7 +39,7 @@
 				</div>
 				<br>
 				<canvas id="canvas"></canvas>
-				<button id="undo">undo</button>
+				<button id="undo">Undo</button>
 				<canvas id="flipbook"></canvas>
 				<button id="play">Playback</button>
 			</div>
