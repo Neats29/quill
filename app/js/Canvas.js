@@ -87,6 +87,23 @@ Canvas.prototype = {
 
 	getClickedCell: function(e) {
 		return this.getCellAtPosition(this.getRelativeMousePosition(e));
+	},
+
+
+	//drawing without letting go of the mouse
+	mouseMoved: function(e) {
+		var x, y;
+		x = e.clientX;
+		y = e.clientY;
+	},
+
+	mouseDown: function(e) {
+		e.target.setCapture();
+		e.addEventListener("mousemove", this.mouseMoved, false);
+	},
+
+	mouseUp: function(e) {
+		e.target.removeEventListener("mousemove", this.mouseMoved, false);
 	}
 
 };
