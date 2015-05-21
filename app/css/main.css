@@ -69,27 +69,32 @@ canvas {
 
 #red {
 	background-color: #e71b1b;
-	width: 10px;
-	height: 10px;
+	width: 15px;
+	height: 15px;
 }
 
 
 #blue {
 	background-color: #3639E0;
-	width: 10px;
-	height: 10px;
+	width: 15px;
+	height: 15px;
 }
 
 
 #green {
 	background-color: #89e71b;
-	width: 10px;
-	height: 10px;
+	width: 15px;
+	height: 15px;
 }
 
 #black {
 	background-color: black;
-	width: 10px;
-	height: 10px;
+	width: 15px;
+	height: 15px;
 }
 
+.colors {
+	float:left;
+ clear:both;
+	display: inline-block;
+}
